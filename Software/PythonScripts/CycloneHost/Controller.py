@@ -62,7 +62,7 @@ def connect(baudrate, device, emulate = 0):
 	DEVICE = device
 	print("Connecting to Cyclone...")
 	if emulate == 0:
-		CNC_Machine = serial.Serial(DEVICE, BAUDRATE, timeout = serial_timeout)
+		CNC_Machine = serial.Serial(DEVICE, BAUDRATE, timeout = serial_timeout, parity=serial.PARITY_ODD)
 		Emulate = 0
 	else:
 		Emulate = 1
@@ -84,7 +84,7 @@ def sendLine(line):
 	if Emulate == 0:
 		flushRecvBuffer()
 		CNC_Machine.write(line)
-#	print("SENT: " + line)
+	print("SENT: " + line)
 
 def recvLine():
 	if Emulate:
@@ -97,6 +97,7 @@ def recvLine():
 
 def recvOK():
 	response = recvLine()
+        print("trying to receive ok: %s" % response)
 	if response[:2].lower() == OK_response.lower():
 		return 1
 	return 0
@@ -125,10 +126,14 @@ def sendCommand(command,timeoutResend=15): # Send command and wait for OK
 	waitForOK(command,timeoutResend)
 
 def checkConnection():
-#	print("Checking the connection...")
+	print("G21: Checking the connection...")
 	sendLine("G21\n") # We check the connection setting millimiters as the unit and waiting for the OK response
 	time.sleep(0.5)
+        counter = 0
+        print("sent G21")
 	while recvOK() != 1:
+                print("G21...%d" % counter)
+                counter += 1
 		sendLine("G21\n")
 		time.sleep(seconds_wait) # Wait some milliseconds between attempts
 

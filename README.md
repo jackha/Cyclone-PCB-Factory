@@ -4,6 +4,16 @@
 <div align="center"><i>A 3D-printable (Rep-Rap alike) CNC machine, intended for PCB manufacture.</i></div>
 </p>  
 
+Forking info!
+=============
+
+You are looking at an experimental fork of the Cyclone PCB Factory software.
+
+- Removed Firmware -> look at the carlosgs MarlinForCyclone master
+
+- I'm doing experiments with Python Scripts.
+
+
 Read this, it's important!
 ===========================
 If you are reading this, then you may be looking at the **development version** of Cyclone PCB Factory.

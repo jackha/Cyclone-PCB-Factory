@@ -24,11 +24,13 @@ import CycloneHost.Controller as cy
 # Load the Z data file
 Z_probing_data = loadFromFile(Z_PROBING_FILE)
 
-
+print("connecting...")
 cy.connect(BAUDRATE, DEVICE, Emulate)
 
+print("G90...")
 cy.sendCommand("G90\n") # Set absolute positioning
 
+print("homexyz..")
 cy.homeZXY() # Home all the axis
 
 # (x,y)
@@ -42,7 +44,7 @@ cy.homeZXY() # Home all the axis
 grid_origin = Z_probing_data['grid_origin']
 grid_len = Z_probing_data['grid_len']
 
-
+print("dunno...")
 # Initial Z lowering for speed up the first probe
 cy.moveZrelSafe(initial_Z_lowering_distance,F_slowMove) # Move Z towards the PCB (saves some probing time for the first coord)
 
